@@ -33,16 +33,17 @@ def no_comment():
 @limiter.limit("2/hour")
 def create_comment():
 	ititle = request.form['url']
+	user = request.form['name']
 	body = request.form['body']
 	repo = g.get_repo("cole-wilson/colewilson.xyz")
 	issues = {}
 	for issue in repo.get_issues(state="open"):
 		issues[issue.title] = issue
 	if ititle not in issues:
-		issue = repo.create_issue(ititle, body=f"Comments for the [{ititle}](https://colewilson.xyz/{ititle}) post.", labels=["comment"])
+		issue = repo.create_issue(ititle, body=f"# {ititle}\nThis is the start of the thread.\nComments for the [{ititle}](https://colewilson.xyz/{ititle}) post.", labels=["comment"])
 	else:
 		issue = issues[ititle]
-	issue.create_comment(body)
+	issue.create_comment(f"## username: {user}\n"+body.replace('# ','### # ').replace('## ','### ##'))
 	return redirect(f"https://colewilson.xyz/{ititle}#comments", code=302)
 
 port = int(os.environ.get('PORT', 5000))
