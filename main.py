@@ -25,12 +25,12 @@ def ip_whitelist():
 	return request.remote_addr == os.getenv("my_ip") or  request.remote_addr == os.getenv("my_ip2") or  request.remote_addr == os.getenv("my_ip3")
 
 @app.route('/comment', methods=['GET'])
-@limiter.limit("1/hour")
+@limiter.exempt
 def no_comment():
 	return "<code>you must come here from a post! head over to <a href='//colewilson.xyz'>colewilson.xyz</a> to view one.</code>"
 
 @app.route('/comment', methods=['POST'])
-@limiter.limit("1/hour")
+@limiter.limit("2/hour")
 def create_comment():
 	ititle = request.form['url']
 	body = request.form['body']
