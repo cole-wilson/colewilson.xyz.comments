@@ -44,7 +44,7 @@ def create_comment():
 	else:
 		issue = issues[ititle]
 	issue.create_comment(f"## username: {user}\n"+body.replace('# ','### # ').replace('## ','### ##'))
-	return redirect(f"https://colewilson.xyz/{ititle}#comments", code=302)
+	return redirect(f"https://colewilson.xyz/{ititle}#comments_hash", code=302)
 
 port = int(os.environ.get('PORT', 5000))
 app.run(host='0.0.0.0', port=port)
