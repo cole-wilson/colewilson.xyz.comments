@@ -8,7 +8,7 @@ app = Flask(__name__)
 limiter = Limiter(
 	app,
 	key_func=get_remote_address,
-	default_limits=["2 per minute"],
+	default_limits=["1000 per minute"],
 )
 
 g = Github(os.getenv("GITHUB_TOKEN"))
