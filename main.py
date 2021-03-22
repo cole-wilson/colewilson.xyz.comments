@@ -22,4 +22,4 @@ def create_comment():
 	return redirect(f"https://colewilson.xyz/{ititle}#comments", code=302)
 
 
-app.run(host='0.0.0.0', port=8080)
+app.run(os.environ.get('PORT'))
